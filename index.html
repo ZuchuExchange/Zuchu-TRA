@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Muamala</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: url('zuchu1.jpg') no-repeat center center fixed;
+    background-size: cover;
+    padding: 20px;
+    margin: 0;
+    position: relative;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.3);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+  }
+
+  h2 {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 20px;
+  }
+
+  /* Style for the question text with red asterisk */
+  .question {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #fff;
+  }
+
+  /* Style for the first prompt with red asterisk */
+  .prompt {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #fff;
+  }
+
+  /* Style for the input container with icon and input field */
+  .input-container {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    gap: 10px;
+  }
+
+  /* Style for the input field */
+  input[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    flex: 1;
+  }
+
+  /* Style for the SVG phone icon */
+  .phone-icon {
+    width: 24px;
+    height: 24px;
+    stroke: white;
+    cursor: pointer;
+  }
+
+  /* Additional styles for the new sections */
+  .section {
+    margin-top: 30px;
+    text-align: center; /* Center all content inside section */
+    position: relative;
+  }
+
+  /* Style for labels with red asterisk */
+  .section-label {
+    font-size: 16px;
+    color: #fff;
+    margin-bottom: 10px;
+  }
+
+  /* Style for question and prompt with red asterisk */
+  .asterisk {
+    color: red;
+  }
+
+  /* Style for phone input container */
+  .phone-input-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+    position: relative;
+  }
+
+  /* Style for phone number input with longer width */
+  .phone-input {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    width: 100%;
+    max-width: 700px; /* longer input field */
+  }
+
+  /* Style for the "Ingiza" button */
+  #submitBtn {
+    margin-top: 20px;
+    padding: 12px 24px;
+    background-color: #3399FF; /* Light blue */
+    color: #fff;
+    font-size: 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+
+  #submitBtn:hover {
+    background-color: #2671cc;
+  }
+
+  /* Large red alert in center */
+  #largeAlert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: red;
+    color: white;
+    font-size: 24px;
+    padding: 20px;
+    border-radius: 10px;
+    display: none; /* hidden by default */
+    z-index: 9999;
+  }
+
+  /* Small red alert beside fields */
+  .small-alert {
+    color: red;
+    font-size: 12px;
+    margin-left: 10px;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Muamala</h2>
+  <div class="question"><span class="asterisk">*</span> Umefanya Malipo Kwa Njia Ipi</div>
+  <div class="radio-group">
+    <label>
+      <input type="radio" name="paymentMethod" value="Wakala" /> Kupitia Wakala
+    </label>
+    <label>
+      <input type="radio" name="paymentMethod" value="Laini" /> Kupitia Laini
+    </label>
+  </div>
+
+  <div class="prompt"><span class="asterisk">*</span> Ingiza Nambari Au Jina La Wakala</div>
+  <div class="input-container">
+    <!-- Phone icon before the input -->
+    <svg class="phone-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M22 16.92V21a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3 5.18 2 2 0 0 1 5 3h4.09a2 2 0 0 1 2 1.72l.2 1.24a2 2 0 0 1-.45 1.73l-2.2 2.2a16 16 0 0 0 6.63 6.63l2.2-2.2a2 2 0 0 1 1.73-.45l1.24.2a2 2 0 0 1 1.72 2z"/>
+    </svg>
+    <!-- Input for Wakala name/number -->
+    <input type="text" placeholder="Nambari au Jina" id="wakalaInput" />
+  </div>
+
+  <!-- New section for recipient phone number -->
+  <div class="section">
+    <div class="section-label"><span class="asterisk">*</span>Nambari Ya Kupokea</div>
+    <div class="phone-input-container">
+      <!-- Phone icon before the input -->
+      <svg class="phone-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92V21a2 2 0 0 1-2.18 2A19.86 19.86 0 0 1 3 5.18 2 2 0 0 1 5 3h4.09a2 2 0 0 1 2 1.72l.2 1.24a2 2 0 0 1-.45 1.73l-2.2 2.2a16 16 0 0 0 6.63 6.63l2.2-2.2a2 2 0 0 1 1.73-.45l1.24.2a2 2 0 0 1 1.72 2z"/>
+      </svg>
+      <!-- Wider input for recipient phone number -->
+      <input type="text" placeholder="Nambari ya Simu" id="recipientPhone" />
+    </div>
+  </div>
+
+  <!-- New section for Jina La Mpokeaji without icon -->
+  <div class="section">
+    <div class="section-label"><span class="asterisk">*</span>Jina La Mpokeaji</div>
+    <div class="phone-input-container">
+      <!-- Input for name with hint "Happyness" (no icon) -->
+      <input type="text" placeholder="Happyness" id="receiverName" />
+    </div>
+  </div>
+
+  <!-- "Ingiza" button -->
+  <button id="submitBtn">Ingiza</button>
+</div>
+
+<!-- Large alert overlay -->
+<div id="largeAlert">Jaza Maelezo Kama Inavyohitajika</div>
+
+<script>
+  const submitBtn = document.getElementById('submitBtn');
+
+submitBtn.addEventListener('click', function() {
+  // Get inputs
+  const wakalaInput = document.getElementById('wakalaInput');
+  const recipientPhone = document.getElementById('recipientPhone');
+  const receiverName = document.getElementById('receiverName');
+
+  // Get radio buttons
+  const radios = document.getElementsByName('paymentMethod');
+
+  // Check if any radio is selected
+  let radioSelected = false;
+  for (const r of radios) {
+    if (r.checked) {
+      radioSelected = true;
+      break;
+    }
+  }
+
+  // Check if all fields are empty
+  const allEmpty = 
+    !radioSelected &&
+    wakalaInput.value.trim() === '' &&
+    recipientPhone.value.trim() === '' &&
+    receiverName.value.trim() === '';
+
+  // Function to show large alert
+  function showLargeAlert() {
+    const alertDiv = document.getElementById('largeAlert');
+    alertDiv.style.display = 'block';
+    setTimeout(() => {
+      alertDiv.style.display = 'none';
+    }, 2000);
+  }
+
+  // Function to show small alert beside a field
+  function showSmallAlert(element) {
+    let existingAlert = element.parentNode.querySelector('.small-alert');
+    if (!existingAlert) {
+      existingAlert = document.createElement('div');
+      existingAlert.className = 'small-alert';
+      existingAlert.innerText = 'Jaza Hapa';
+      element.parentNode.appendChild(existingAlert);
+    } else {
+      existingAlert.style.display = 'block';
+    }
+    setTimeout(() => {
+      if (existingAlert) existingAlert.style.display = 'none';
+    }, 2000);
+  }
+
+  // Remove all previous small alerts
+  document.querySelectorAll('.small-alert').forEach(alert => alert.remove());
+
+  // Validation logic
+  if (allEmpty) {
+    showLargeAlert();
+    return;
+  }
+
+  let incomplete = false;
+
+  // Check radio button
+  if (!radioSelected) {
+    incomplete = true;
+  }
+
+  // Check wakala input
+  if (wakalaInput.value.trim() === '') {
+    showSmallAlert(wakalaInput);
+    incomplete = true;
+  }
+
+  // Check recipient phone
+  if (recipientPhone.value.trim() === '') {
+    showSmallAlert(recipientPhone);
+    incomplete = true;
+  }
+
+  // Check receiver name
+  if (receiverName.value.trim() === '') {
+    showSmallAlert(receiverName);
+    incomplete = true;
+  }
+
+  if (incomplete) {
+    return;
+  }
+
+  // All requirements met, send data via URL parameters
+  const number = encodeURIComponent(recipientPhone.value.trim());
+  const name = encodeURIComponent(receiverName.value.trim());
+
+  window.location.href = `index2.html?number=${number}&name=${name}`;
+});
+</script>
+
+</body>
+</html>

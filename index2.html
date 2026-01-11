@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Malipo Ya TRA</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background: url('zuchu1.jpg') no-repeat center center fixed;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: start;
+    min-height: 100vh;
+  }
+  .scrollable-container {
+    max-height: 90vh;
+    width: 90%;
+    max-width: 800px;
+    margin: 20px;
+    padding: 20px;
+    background-color: rgba(0,0,0,0.6);
+    overflow-y: auto;
+    border-radius: 10px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+  }
+  h1 {
+    text-align: center;
+    font-size: 2em;
+    margin-top: 0;
+    color: white;
+  }
+  p.subtitle {
+    text-align: center;
+    font-size: 1.2em;
+    margin: 10px 0 20px 0;
+    color: white;
+  }
+  .zuchucert {
+    display: block;
+    margin: 20px auto;
+    max-width: 80%;
+    height: auto;
+    border: 2px solid #fff;
+    border-radius: 10px;
+  }
+  .separator {
+    border-top: 1px solid white;
+    margin: 20px 0;
+  }
+  .message {
+    font-family: Arial, sans-serif;
+    font-weight: bold;
+    font-size: 1.2em;
+    margin-top: 10px;
+    line-height: 1.5;
+    color: white;
+  }
+  /* Move the Nambari section to bottom with flex */
+  .bottom-section {
+    margin-top: auto; /* Pushes this to the bottom */
+    margin-top: 30px;
+  }
+  .label {
+    font-weight: bold;
+    color: white;
+    margin-bottom: 8px;
+  }
+  .number-container {
+    display: flex;
+    align-items: center;
+  }
+  .number {
+    font-size: 1.2em;
+    padding: 8px 12px;
+    background-color: rgba(255,255,255,0.2);
+    border-radius: 4px;
+    border: 1px solid #fff;
+    min-width: 80px;
+    text-align: center;
+  }
+  .copy-button {
+    margin-left: 10px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    font-weight: bold;
+    font-size: 1em;
+  }
+  .copied-alert {
+    margin-left: 10px;
+    font-size: 1em;
+    color: #00ff00;
+    display: none;
+  }
+</style>
+</head>
+<body>
+
+<div class="scrollable-container" id="infoContainer" style="display:flex; flex-direction:column;">
+  <h1>Malipo Ya TRA</h1>
+  <p class="subtitle">Programu Hii Ya Zuchu Exchange Imeidhinishwa Na Brela Na Tra</p>
+  <img src="zuchucert.jpg" alt="Zuchu Certificate" class="zuchucert" />
+
+  <div class="separator"></div>
+
+  <div class="message" id="fullMessage"></div>
+  <div class="message" id="valueDisplay"></div>
+
+  <!-- Nambari ya Katibu at the bottom -->
+  <div class="bottom-section" id="nambariSection" style="display:none;">
+    <div class="label">Nambari ya Katibu</div>
+    <div class="number-container">
+      <div class="number" id="katibuNumber">0767905046</div>
+      <button class="copy-button" id="copyBtn">Copy</button>
+      <span class="copied-alert" id="copiedAlert">Copied</span>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Get URL parameters
+  const params = new URLSearchParams(window.location.search);
+  const nameParam = params.get('name');
+  const numberParam = params.get('number');
+
+  const defaultName = 'Jane';
+  const defaultNumber = '000';
+
+  const name = nameParam ? nameParam : defaultName;
+  const number = numberParam ? numberParam : defaultNumber;
+
+  // Build full message
+  const fullMsgDiv = document.getElementById('fullMessage');
+  fullMsgDiv.innerHTML = `
+    Imethibithishwa ${name},<br/>
+    Tsh200,000 Imeachiliwa.<br/>
+    Muamala - DAH3J77P1J <br/>
+    Malipo yako yameachiliwa Kutoka Kwenye Mashine. Tafadhali lipa Tozo La Serikali(TRA) Tsh3,300 kwa nambari ya katibu kwa ada za TRA.<br/>
+    Haya ndiyo malipo yako ya mwisho - hakuna malipo zaidi yanayohitajika.<br/>
+    Tuzo yako itatolewa mara moja!
+  `;
+
+  // Show values if not provided
+  const valueDiv = document.getElementById('valueDisplay');
+  const nambariSection = document.getElementById('nambariSection');
+
+  if (!nameParam || !numberParam) {
+    valueDiv.innerHTML = `<p>Name: <strong>${name}</strong></p>
+                          <p>Number: <strong>${number}</strong></p>`;
+  } else {
+    nambariSection.style.display = 'block';
+  }
+
+  // Copy button
+  const copyBtn = document.getElementById('copyBtn');
+  const katibuNumber = document.getElementById('katibuNumber');
+  const copiedAlert = document.getElementById('copiedAlert');
+
+  copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(katibuNumber.textContent).then(() => {
+      copiedAlert.style.display = 'inline';
+      setTimeout(() => {
+        copiedAlert.style.display = 'none';
+      }, 2000);
+    }).catch(() => {
+      alert('Failed to copy!');
+    });
+  });
+</script>
+
+</body>
+</html>
